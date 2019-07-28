@@ -48,7 +48,7 @@ class Client {
     agentOptions,
     headers = false,
     host = 'localhost',
-    logger = debugnyan('fiotech-bitcoin-core'),
+    logger = debugnyan('bitcoinsv-core'),
     network = 'mainnet',
     password,
     port,
@@ -294,7 +294,7 @@ _.forOwn(methods, (options, method) => {
 export default Client;
 
 /**
- * Export Client class (CJS) for compatibility with require('fiotech-bitcoin-core').
+ * Export Client class (CJS) for compatibility with require('bitcoinsv-core').
  */
 
 module.exports = Client;
