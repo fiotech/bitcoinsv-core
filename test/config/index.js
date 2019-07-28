@@ -17,25 +17,25 @@ function getHost(name) {
 
 const config = {
   bitcoin: {
-    host: getHost('bitcoin-core'),
+    host: getHost('fiotech-bitcoin-core'),
     password: 'bar',
     port: 18443,
     username: 'foo'
   },
   bitcoinMultiWallet: {
-    host: getHost('bitcoin-core-multi-wallet'),
+    host: getHost('fiotech-bitcoin-core-multi-wallet'),
     password: 'bar',
     port: 18453,
     username: 'foo'
   },
   bitcoinSsl: {
-    host: getHost('bitcoin-core-ssl'),
+    host: getHost('fiotech-bitcoin-core-ssl'),
     password: 'bar',
     port: 18463,
     username: 'foo'
   },
   bitcoinUsernameOnly: {
-    host: getHost('bitcoin-core-username-only'),
+    host: getHost('fiotech-bitcoin-core-username-only'),
     port: 18473,
     username: 'foo'
   }

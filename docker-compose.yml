@@ -6,14 +6,14 @@ sut:
   environment:
     - CI=true
   links:
-    - bitcoin-core
-    - bitcoin-core-multi-wallet
-    - bitcoin-core-ssl
-    - bitcoin-core-username-only
+    - fiotech-bitcoin-core
+    - fiotech-bitcoin-core-multi-wallet
+    - fiotech-bitcoin-core-ssl
+    - fiotech-bitcoin-core-username-only
   working_dir: /app
 
-bitcoin-core:
-  image: ruimarinho/bitcoin-core:0.17-alpine
+fiotech-bitcoin-core:
+  image: ruimarinho/fiotech-bitcoin-core:0.17-alpine
   command:
     -printtoconsole
     -regtest=1
@@ -28,8 +28,8 @@ bitcoin-core:
   ports:
     - 18443:18443
 
-bitcoin-core-multi-wallet:
-  image: ruimarinho/bitcoin-core:0.17-alpine
+fiotech-bitcoin-core-multi-wallet:
+  image: ruimarinho/fiotech-bitcoin-core:0.17-alpine
   command:
     -printtoconsole
     -regtest=1
@@ -46,8 +46,8 @@ bitcoin-core-multi-wallet:
   ports:
     - 18453:18453
 
-bitcoin-core-ssl:
-  image: ruimarinho/bitcoin-core:0.11-alpine
+fiotech-bitcoin-core-ssl:
+  image: ruimarinho/fiotech-bitcoin-core:0.11-alpine
   command:
     -printtoconsole
     -regtest=1
@@ -67,8 +67,8 @@ bitcoin-core-ssl:
   ports:
     - 18463:18463
 
-bitcoin-core-username-only:
-  image: ruimarinho/bitcoin-core:0.11-alpine
+fiotech-bitcoin-core-username-only:
+  image: ruimarinho/fiotech-bitcoin-core:0.11-alpine
   command:
     -printtoconsole
     -regtest=1
