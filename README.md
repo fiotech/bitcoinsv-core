@@ -1,4 +1,4 @@
-# bitcoin-core
+# bitcoinsv-core
 A modern Bitcoin Core REST and RPC client to execute administrative tasks, [multiwallet](https://bitcoincore.org/en/2017/09/01/release-0.15.0/#multiwallet) operations and queries about network and the blockchain.
 
 ## Status
@@ -9,7 +9,7 @@ A modern Bitcoin Core REST and RPC client to execute administrative tasks, [mult
 Install the package via `yarn`:
 
 ```sh
-yarn add bitcoin-core
+yarn add bitcoinsv-core
 ```
 
 or via `npm`:
@@ -17,7 +17,7 @@ or via `npm`:
 Install the package via `npm`:
 
 ```sh
-npm install bitcoin-core --save
+npm install bitcoinsv-core --save
 ```
 
 ## Usage
@@ -26,7 +26,7 @@ npm install bitcoin-core --save
 1. `[agentOptions]` _(Object)_: Optional `agent` [options](https://github.com/request/request#using-optionsagentoptions) to configure SSL/TLS.
 2. `[headers=false]` _(boolean)_: Whether to return the response headers.
 3. `[host=localhost]` _(string)_: The host to connect to.
-4. `[logger=debugnyan('bitcoin-core')]` _(Function)_: Custom logger (by default, `debugnyan`).
+4. `[logger=debugnyan('bitcoinsv-core')]` _(Function)_: Custom logger (by default, `debugnyan`).
 5. `[network=mainnet]` _(string)_: The network
 6. `[password]` _(string)_: The RPC server user password.
 7. `[port=[network]]` _(string)_: The RPC server port.
@@ -43,7 +43,7 @@ npm install bitcoin-core --save
 The `network` will automatically determine the port to connect to, just like the `bitcoind` and `bitcoin-cli` commands.
 
 ```js
-const Client = require('bitcoin-core');
+const Client = require('bitcoinsv-core');
 const client = new Client({ network: 'regtest' });
 ```
 
@@ -137,10 +137,10 @@ Since Bitcoin Core v0.15.0, it's possible to manage multiple wallets using a sin
 
 Historically, the _accounts_ feature was supposed to offer similar functionality, but it has now been replaced by this more powerful feature.
 
-To enable Multi Wallet support, start by specifying the number of added wallets you would like to have available and loaded on the server using the `-wallet` argument multiple times. For convenience, the bitcoin-core docker image will be used, but it's not a requirement:
+To enable Multi Wallet support, start by specifying the number of added wallets you would like to have available and loaded on the server using the `-wallet` argument multiple times. For convenience, the bitcoinsv-core docker image will be used, but it's not a requirement:
 
 ```sh
-docker run --rm -it -p 18332:18332 ruimarinho/bitcoin-core:0.15-alpine \
+docker run --rm -it -p 18332:18332 ruimarinho/bitcoinsv-core:0.15-alpine \
   -printtoconsole \
   -server \
   -rpcauth='foo:e1fcea9fb59df8b0388f251984fe85$26431097d48c5b6047df8dee64f387f63835c01a2a463728ad75087d0133b8e6' \
@@ -155,7 +155,7 @@ Notice the `rpcauth` hash which has been previously generated for the password `
 Instantiate a client for each wallet and execute commands targeted at each wallet:
 
 ```js
-const Client = require('bitcoin-core');
+const Client = require('bitcoinsv-core');
 
 const wallet1 = new Client({
   network: 'regtest',
@@ -216,7 +216,7 @@ To avoid potential issues with prototype references, all methods are still enume
 Start the `bitcoind` with the RPC server enabled and optionally configure a username and password:
 
 ```sh
-docker run --rm -it ruimarinho/bitcoin-core:0.12-alpine -printtoconsole -rpcuser=foo -rpcpassword=bar -server
+docker run --rm -it ruimarinho/bitcoinsv-core:0.12-alpine -printtoconsole -rpcuser=foo -rpcpassword=bar -server
 ```
 
 These configuration values may also be set on the `bitcoin.conf` file of your platform installation.
@@ -273,7 +273,7 @@ Error handling is still fragile so avoid passing user input.
 Start the `bitcoind` with the REST server enabled:
 
 ```sh
-docker run --rm -it ruimarinho/bitcoin-core:0.12-alpine -printtoconsole -server -rest
+docker run --rm -it ruimarinho/bitcoinsv-core:0.12-alpine -printtoconsole -server -rest
 ```
 
 These configuration values may also be set on the `bitcoin.conf` file of your platform installation. Use `txindex=1` if you'd like to enable full transaction query support (note: this will take a considerable amount of time on the first run).
@@ -413,7 +413,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 3650 -nod
 On Bitcoin Core <0.12, you can start the `bitcoind` RPC server directly with SSL:
 
 ```sh
-docker run --rm -it -v $(PWD)/ssl:/etc/ssl ruimarinho/bitcoin-core:0.11-alpine -printtoconsole -rpcuser=foo -rpcpassword=bar -rpcssl -rpcsslcertificatechainfile=/etc/ssl/bitcoind/cert.pem -rpcsslprivatekeyfile=/etc/ssl/bitcoind/key.pem -server
+docker run --rm -it -v $(PWD)/ssl:/etc/ssl ruimarinho/bitcoinsv-core:0.11-alpine -printtoconsole -rpcuser=foo -rpcpassword=bar -rpcssl -rpcsslcertificatechainfile=/etc/ssl/bitcoind/cert.pem -rpcsslprivatekeyfile=/etc/ssl/bitcoind/key.pem -server
 ```
 
 On Bitcoin Core >0.12, use must use `stunnel` (`brew install stunnel` or `sudo apt-get install stunnel4`) or an HTTPS reverse proxy to configure SSL since the built-in support for SSL has been removed. The trade off with `stunnel` is performance and simplicity versus features, as it lacks more powerful capacities such as Basic Authentication and caching which are standard in reverse proxies.
@@ -439,7 +439,7 @@ stunnel -d 28332 -r 127.0.0.1:18332 -p stunnel.pem -P ''
 Then pass the public certificate to the client:
 
 ```js
-const Client = require('bitcoin-core');
+const Client = require('bitcoinsv-core');
 const fs = require('fs');
 const client = new Client({
   agentOptions: {
@@ -452,13 +452,13 @@ const client = new Client({
 
 ## Logging
 
-By default, all requests made with `bitcoin-core` are logged using [uphold/debugnyan](https://github.com/uphold/debugnyan) with `bitcoin-core` as the logging namespace.
+By default, all requests made with `bitcoinsv-core` are logged using [uphold/debugnyan](https://github.com/uphold/debugnyan) with `bitcoinsv-core` as the logging namespace.
 
 Please note that all sensitive data is obfuscated before calling the logger.
 
 #### Example
 
-Example output defining the environment variable `DEBUG=bitcoin-core`:
+Example output defining the environment variable `DEBUG=bitcoinsv-core`:
 
 ```javascript
 const client = new Client();
@@ -466,7 +466,7 @@ const client = new Client();
 client.getTransactionByHash('b4dd08f32be15d96b7166fd77afd18aece7480f72af6c9c7f9c5cbeb01e686fe');
 
 // {
-//   "name": "bitcoin-core",
+//   "name": "bitcoinsv-core",
 //   "hostname": "localhost",
 //   "pid": 57908,
 //   "level": 20,
@@ -515,7 +515,7 @@ npm version [<newversion> | major | minor | patch] -m "Release %s"
 ## License
 MIT
 
-[npm-image]: https://img.shields.io/npm/v/bitcoin-core.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/bitcoin-core
-[travis-image]: https://img.shields.io/travis/ruimarinho/bitcoin-core.svg?style=flat-square
-[travis-url]: https://travis-ci.org/ruimarinho/bitcoin-core
+[npm-image]: https://img.shields.io/npm/v/bitcoinsv-core.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/bitcoinsv-core
+[travis-image]: https://img.shields.io/travis/ruimarinho/bitcoinsv-core.svg?style=flat-square
+[travis-url]: https://travis-ci.org/ruimarinho/bitcoinsv-core
