@@ -1,5 +1,5 @@
 {
-  "name": "bitcoin-core",
+  "name": "fiotech-bitcoin-core",
   "version": "2.2.0",
   "description": "A modern Bitcoin Core REST and RPC client.",
   "keywords": [
@@ -10,8 +10,8 @@
     "rest",
     "rpc"
   ],
-  "homepage": "https://github.com/ruimarinho/bitcoin-core",
-  "bugs": "https://github.com/ruimarinho/bitcoin-core/issues",
+  "homepage": "https://github.com/fiotech/fiotech-bitcoin-core",
+  "bugs": "https://github.com/fiotech/fiotech-bitcoin-core/issues",
   "license": "MIT",
   "author": {
     "name": "Rui Marinho",
@@ -20,7 +20,7 @@
   "main": "dist/src/index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ruimarinho/bitcoin-core.git"
+    "url": "https://github.com/fiotech/fiotech-bitcoin-core.git"
   },
   "scripts": {
     "changelog": "github_changelog_generator --no-issues --header-label='# Changelog' --future-release=$npm_config_future_release && sed -i '' -e :a -e '$d;N;2,4ba' -e 'P;D' CHANGELOG.md",
